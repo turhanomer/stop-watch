@@ -30,22 +30,28 @@ function App() {
     localStorage.setItem("savedTimes", JSON.stringify(newSavedTimes));
   };
 
+  const handleDelete = (index) => {
+    const newSavedTimes = savedTimes.filter((_,i) => i !== index);
+    setSavedTimes(newSavedTimes);
+    localStorage.setItem("savedTimes", JSON.stringify(newSavedTimes));
+  }
+
   return (
     <>
       <div className=" dark:bg-slate-800 dark:text-white flex flex-col items-center justify-center py-8 mb-2">
         <div className="flex flex-row items-baseline">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="25"
-          fill="currentColor"
-          class="bi bi-stopwatch"
-          viewBox="0 0 16 15"
-        >
-          <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5z" />
-          <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64l.012-.013.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3" />
-        </svg>
-        <h1 className="text-2xl font font-semibold pb-2 pl-4">STOPWATCH</h1>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="currentColor"
+            class="bi bi-stopwatch"
+            viewBox="0 0 16 15"
+          >
+            <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5z" />
+            <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64l.012-.013.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3" />
+          </svg>
+          <h1 className="text-2xl font font-semibold pb-2 pl-4">STOPWATCH</h1>
         </div>
         <div className="text-3xl font-semibold py-4">
           <span>{("0" + (Math.floor(time / 60000) % 60)).slice(-2)}:</span>
@@ -73,7 +79,6 @@ function App() {
           <button
             className="border rounded-lg py-1 px-3 hover:bg-sky-950"
             onClick={() => {
-              setTime(0);
               localStorage.removeItem("savedTimes");
               setSavedTimes([]);
             }}
@@ -88,6 +93,7 @@ function App() {
             {savedTimes.map((savedTime, index) => (
               <div key={index} className="saved-time-entry">
                 Saved time: {index + 1} <br />
+                <div>
                 <span>
                   {("0" + (Math.floor(savedTime / 60000) % 60)).slice(-2)}:
                 </span>
@@ -97,6 +103,13 @@ function App() {
                 <span>
                   {("0" + (Math.floor(savedTime / 10) % 100)).slice(-2)}
                 </span>
+                </div>
+                <button
+                onClick={() => handleDelete(index)}   
+                  type="button"
+                  className="text-white btn btn-outline-danger float-end items-center px-3 -my-11">
+                  Delete
+                </button>
               </div>
             ))}
           </div>
