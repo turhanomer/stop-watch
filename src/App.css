@@ -23,7 +23,16 @@
 }
 
 @media screen and (min-width: 960px) {
-  #buttons{
+  #buttons {
     width: 30%;
   }
+}
+
+#trans {
+  transition: opacity 0.5s ease-in-out; /* Adjust duration as needed */
+  opacity: 1;
+}
+
+#trans.fade-out {
+  opacity: 0;
 }

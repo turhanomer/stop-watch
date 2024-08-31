@@ -1,3 +1,4 @@
+// src/App.js
 import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
@@ -6,6 +7,8 @@ import ControlButtons from "./components/ContolButtons";
 import SavedTimesList from "./components/SavedTimeList";
 
 function App() {
+
+
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
   const [savedTimes, setSavedTimes] = useState([]);
@@ -53,21 +56,21 @@ function App() {
 
   return (
     <>
-    <div className="dark:bg-slate-800 dark:text-white flex flex-col items-center justify-center py-8 mb-2 min-h-screen">
-      <Header />
-      <TimerDisplay time={time} />
-    <ControlButtons
-      running={running}
-      onStart={handleStart}
-      onStop={handleStop}
-      onReset={handleReset}
-    />
-    </div>
-    {savedTimes.length > 0 && (
-      <SavedTimesList savedTimes={savedTimes} onDelete={handleDelete} />
-    )}
+      <div className="dark:bg-slate-800 dark:text-white flex flex-col items-center justify-center p-5 mb-3">
+        <Header />
+        <TimerDisplay time={time} />
+        <ControlButtons
+          running={running}
+          onStart={handleStart}
+          onStop={handleStop}
+          onReset={handleReset}
+        />
+      </div>
+      {savedTimes.length > 0 && (
+        <SavedTimesList savedTimes={savedTimes} onDelete={handleDelete} />
+      )}
     </>
-  )
+  );
 }
 
 export default App;
